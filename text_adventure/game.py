@@ -4,15 +4,15 @@
 """Main game entry point."""
 
 from .world import World
-from .spaghetti_entity import MyDemoCharacter
+from .entity import MyCharacter
 
 def run():
     "Run the game."
     world = World()
 
     # Instantiate your character here and add it to the world:
-    dan = MyDemoCharacter("Dan")
-    world.add_entity(dan)
+    character = MyCharacter("My Name")
+    world.add_entity(character)
 
     # We advance the world 20 timesteps
     for step in range(20):
