@@ -15,7 +15,7 @@ Commit your changes. Once you're happy with your code, create a pull request.
 Your task is to implement the `MyCharacter` class found in 
 text_adventure/entity.py. The `update` method contains print statements
 explaining how the character should behave, and Workflow.png will give you
-some hits on what order things should be happening in.
+some hints on what order things should be happening in.
 
 You can find an example of what the output might be like in 
 `expected_output.txt`.
