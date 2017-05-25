@@ -7,8 +7,7 @@ problems they try to solve.
 If you're interested in joining us on this adventure, you can find us at
 https://codebuddies.org/ (we're in the Python channel in Slack).
 
-Instructions
-************
+### Instructions
 
 Your task is to implement the `MyCharacter` class found in 
 text_adventure/entity.py. The `update` method contains print statements
