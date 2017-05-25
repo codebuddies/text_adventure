@@ -9,6 +9,9 @@ https://codebuddies.org/ (we're in the Python channel in Slack).
 
 ### Instructions
 
+Fork the code. Create a new branch. Make your changes in your own repo.
+Commit your changes. Once you're happy with your code, create a pull request.
+
 Your task is to implement the `MyCharacter` class found in 
 text_adventure/entity.py. The `update` method contains print statements
 explaining how the character should behave.
