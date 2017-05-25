@@ -17,5 +17,8 @@ text_adventure/entity.py. The `update` method contains print statements
 explaining how the character should behave, and Workflow.png will give you
 some hints on what order things should be happening in.
 
+**WARNING:**  This code is going to throw an exception initially -  there are some things missing.  
+Your mission is to find and fix those items! 
+
 You can find an example of what the output might be like in 
 `expected_output.txt`.
