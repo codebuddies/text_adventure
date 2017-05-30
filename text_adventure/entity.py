@@ -36,9 +36,9 @@ class MyCharacter(Entity):
         self.check_tiredness()
         self.thirst += self.thirst_counter
         self.tiredness += self.sleep_counter
-        print(f"{self.name} is {self.status}")
-        print(f"Tiredness: {self.tiredness}")
-        print(f"Thirst: {self.thirst}")
+        print("{self.name} is {self.status}".format(self=self))
+        print("Tiredness: {self.tiredness}".format(self=self))
+        print("Thirst: {self.thirst}".format(self=self))
 
     def check_status(self):
         if self.status == "working":
