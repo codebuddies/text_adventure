@@ -11,7 +11,7 @@ def run():
     world = World()
 
     # Instantiate your character here and add it to the world:
-    character = MyCharacter("My Name")
+    character = MyCharacter("Dan")
     world.add_entity(character)
 
     # We advance the world 20 timesteps
