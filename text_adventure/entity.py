@@ -22,45 +22,82 @@ class Entity:
 class MyCharacter(Entity):
 
     def __init__(self, name):
-        self.name = name
-        self.tiredness = 0
-        self.thirst = 0
-        self.current_status = 'Drinking a nice beer.'
-        pass
+        super().__init__name()
+        self.current_status = Working()
+
+    def change_status(self, new_status):
+        self.current_status = new_status
+        self.current_status.enter(self)
 
     def update(self):
-        self.tiredness += 1#
-        if not self.current_status == "Zzzz":
-            self.thirst += 1 # Should only be called when not sleeping...
-        self.check_status()
+        self.current_status.update(self)
 
-    def check_status(self):
-        #printint out current status
-        print(self.current_status)
-        if self.current_status == "Drinking a nice beer.":
-            self.thirst = 0
-            if self.tiredness == self.TOO_TIRED:
-                print("I'll go back home get some sleep.")
-                self.current_status = "Zzzz"
-            elif self.thirst == 0:
-                print("I'll go to work.")
-                self.current_status = "Working my ass off"
-        elif self.current_status == "Zzzz":
-            self.tiredness -= 3 
-            self.tiredness = max(self.tiredness, 0) 
-            if self.tiredness == 0:
-                print("I'll go to work.")
-                self.current_status = "Working my ass off"
-        elif self.current_status == "Working my ass off":
-            if self.tiredness == self.TOO_TIRED:
-                print("I'll go back home get some sleep.")
-                self.current_status = "Zzzz"
-            elif self.thirst == self.TOO_THIRSTY:
-                print("Heading off to the bar!")
-                self.current_status = 'Drinking a nice beer.'
+class Working:
+    def enter(self, entity):
+        print("Let's get some work done!")
+
+    def update(self, entity):
+        entity.tiredness += 1
+        entity.thirst += 1 
+        print("Working my ass off")
+        if entity.tiredness == entity.TOO_TIRED:
+            print("I'll go back home get some sleep.")
+            entity.change_status(Sleeping())
+        elif entity.thirst == entity.TOO_THIRSTY:
+            print("Heading off to the bar!")
+            entity.change_status(Drinking())
+
+class Drinking:
+    def enter(self, entity):
+        print("Heading off to the bar!")
+
+    def update(self, entity):
+        entity.tiredness += 1
+        entity.thirst = 0
+        print("Drinking a nice beer.")
+        if entity.tiredness == entity.TOO_TIRED:
+            print("I'll go back home get some sleep.")
+            entity.change_status(Sleeping())
+        elif self.thirst == 0:
+            print("I'll go to work.")
+            entity.change_status(Working())
+
+class Sleeping:
+    def enter(self, entity):
+        print("I'll go back home get some sleep.")
+    def update(self, entity):
+        print("Zzzz")
+        entity.tiredness -= 3 
+        entity.tiredness = max(entity.tiredness, 0) 
+        if entity.tiredness == 0:
+            entity.change_status(Working())
+
+    # def check_status(self):
+    #     print(self.current_status)
+    #     if self.current_status == "Drinking a nice beer.":
+    #         self.thirst = 0
+    #         if self.tiredness == self.TOO_TIRED:
+    #             print("I'll go back home get some sleep.")
+    #             self.current_status = "Zzzz"
+    #         elif self.thirst == 0:
+    #             print("I'll go to work.")
+    #             self.current_status = "Working my ass off"
+    #     elif self.current_status == "Zzzz":
+    #         self.tiredness -= 3 
+    #         self.tiredness = max(self.tiredness, 0) 
+    #         if self.tiredness == 0:
+    #             print("I'll go to work.")
+    #             self.current_status = "Working my ass off"
+    #     elif self.current_status == "Working my ass off":
+    #         if self.tiredness == self.TOO_TIRED:
+    #             print("I'll go back home get some sleep.")
+    #             self.current_status = "Zzzz"
+    #         elif self.thirst == self.TOO_THIRSTY:
+    #             print("Heading off to the bar!")
+    #             self.current_status = 'Drinking a nice beer.'
 
 
-
+#each user input will map to a transition, in the real text adventure game
 
 
 
