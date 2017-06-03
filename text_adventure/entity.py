@@ -16,6 +16,11 @@ class Entity:
         self.thirst = 0
         self.name = name
 
+    def change_state(self, new_state):
+        self.exit()
+        self.__class__ = new_state
+        self.enter()
+
     def update(self):
         raise NotImplementedError
 
@@ -24,72 +29,68 @@ class MyCharacter(Entity):
 
     def __init__(self, name):
         super().__init__(name)
-        self.state = Working()
-
-    def change_state(self, new_state):
-        self.state.exit(self)
-        self.state = new_state
-        self.state.enter(self)
+        self.__class__ = Working
 
     def update(self):
-        self.state.update(self)
+        self.update()
 
 
-class Working:
-    def enter(self, entity):
+class Working(MyCharacter):
+
+    def enter(self):
         print("Let's get some work done!")
 
-    def exit(self, entity):
+    def exit(self):
         print("Leaving the office.")
 
-    def update(self, entity):
-        entity.tiredness += 1
-        entity.thirst += 1
+    def update(self):
+        self.tiredness += 1
+        self.thirst += 1
 
         print("Working my ass off.")
 
-        if entity.thirst > entity.TOO_THIRSTY:
+        if self.thirst > self.TOO_THIRSTY:
             print("I'm too thirsty. Heading off to the bar!")
-            entity.change_state(Drinking())
-        elif entity.tiredness > entity.TOO_TIRED:
+            self.change_state(Drinking)
+        elif self.tiredness > self.TOO_TIRED:
             print("I'm too tired to keep on working. I'll go back home get"
                   " some sleep.")
-            entity.change_state(Sleeping())
+            self.change_state(Sleeping)
 
-class Drinking:
-    def enter(self, entity):
+class Drinking(MyCharacter):
+    def enter(self):
         print("Let's checkout this bar. They seem to have tap beers.")
 
-    def exit(self, entity):
+    def exit(self):
         print("Let's leave a tip before leaving the bar.")
 
-    def update(self, entity):
-        entity.tiredness += 1
+    def update(self):
+        self.tiredness += 1
 
         print("Drinking a nice beer")
-        entity.thirst = 0
+        self.thirst = 0
 
-        if entity.tiredness > entity.TOO_TIRED:
+        if self.tiredness > self.TOO_TIRED:
             print("Drinking made me tired. I'll go back home get"
                   " some sleep.")
-            entity.change_state(Sleeping())
+            self.change_state(Sleeping)
         else:
             print("Now I can go back to work.")
-            entity.change_state(Working())
+            self.change_state(Working)
 
-class Sleeping:
-    def enter(self, entity):
+class Sleeping(MyCharacter):
+    def enter(self):
         print("Home, sweet home.")
 
-    def exit(self, entity):
+    def exit(self):
         print("Let's lock the front door before leaving home.")
 
-    def update(self, entity):
-        entity.tiredness += 1
+    def update(self):
+        self.tiredness += 1
         
         print("Zzzz")
-        entity.tiredness -= 3
-        if entity.tiredness <= 0:
-            entity.tiredness = 0
+        self.tiredness -= 3
+        if self.tiredness <= 0:
+            self.tiredness = 0
             print("I had enough sleep. I'll go to work.")
-            entity.change_state(Working())
+            self.change_state(Working)
