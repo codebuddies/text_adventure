@@ -12,9 +12,10 @@ https://codebuddies.org/ (we're in the #python and #text-adventure channels in S
 #### First assignment
 
 1. Fork the code. (Or, if you've requested collaboration access in the #text-adventures channel on the [CodeBuddies](http://codebuddies.org) Slack, you can `git clone` the repo directly.)
-2. Checkout the `original_prints` branch. 
-3. Create a new branch based on the `original_prints` branch. Make your changes in your own repo.
-4. Commit your changes. Once you're happy with your code, create a pull request -- or, if you've been added as a collaborator, simply push up the branch.
+2. Checkout the 0.1 tag by typing `git checkout tags/0.1`. 
+3. Create a new branch based on this tag by typing `git checkout -b [YOUR_NAME]_character`. 
+Make your changes while in this new branch.
+4. Commit your changes. Once you're happy with your code, create a pull request -- or, if you've been added as a collaborator, simply `git push` up this branch. (The first time you push, you'll have to type `git push --set-upstream [branchname]`).
 
 Your task is to implement the `MyCharacter` class found in 
 text_adventure/entity.py. The `update` method contains print statements
