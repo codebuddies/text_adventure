@@ -23,73 +23,50 @@ class Entity:
 class MyCharacter(Entity):
 
     def __init__(self, name):
-        super().__init__(name)
-        self.state = Working()
-
-    def change_state(self, new_state):
-        self.state.exit(self)
-        self.state = new_state
-        self.state.enter(self)
-
+        self.name = name
+        self.tiredness = 0
+        self.thirst = 0
+        self.currentStatus=0
     def update(self):
-        self.state.update(self)
+        locationText = ["Working my ass off.","Drinking a nice beer","Zzzz"]
+        transitionText = ["I'm too thirsty. Heading off to the bar!","Now I can go back to work.","I'm too tired to keep on working. I'll go back home get some sleep.","Drinking made me tired. I'll go back home get some sleep.","I had enough sleep. I'll go to work."]
 
-
-class Working:
-    def enter(self, entity):
-        print("Let's get some work done!")
-
-    def exit(self, entity):
-        print("Leaving the office.")
-
-    def update(self, entity):
-        entity.tiredness += 1
-        entity.thirst += 1
-
-        print("Working my ass off.")
-
-        if entity.thirst > entity.TOO_THIRSTY:
-            print("I'm too thirsty. Heading off to the bar!")
-            entity.change_state(Drinking())
-        elif entity.tiredness > entity.TOO_TIRED:
-            print("I'm too tired to keep on working. I'll go back home get"
-                  " some sleep.")
-            entity.change_state(Sleeping())
-
-class Drinking:
-    def enter(self, entity):
-        print("Let's checkout this bar. They seem to have tap beers.")
-
-    def exit(self, entity):
-        print("Let's leave a tip before leaving the bar.")
-
-    def update(self, entity):
-        entity.tiredness += 1
-
-        print("Drinking a nice beer")
-        entity.thirst = 0
-
-        if entity.tiredness > entity.TOO_TIRED:
-            print("Drinking made me tired. I'll go back home get"
-                  " some sleep.")
-            entity.change_state(Sleeping())
-        else:
-            print("Now I can go back to work.")
-            entity.change_state(Working())
-
-class Sleeping:
-    def enter(self, entity):
-        print("Home, sweet home.")
-
-    def exit(self, entity):
-        print("Let's lock the front door before leaving home.")
-
-    def update(self, entity):
-        entity.tiredness += 1
+        print(locationText[self.currentStatus])
         
-        print("Zzzz")
-        entity.tiredness -= 3
-        if entity.tiredness <= 0:
-            entity.tiredness = 0
-            print("I had enough sleep. I'll go to work.")
-            entity.change_state(Working())
+        if self.currentStatus == 0:
+            self.tiredness+=1
+            self.thirst+=1
+            if self.tiredness>=self.TOO_TIRED:
+                self.currentStatus = 2
+                print(transitionText[2])
+            elif self.thirst>=self.TOO_THIRSTY:
+                self.currentStatus=1
+                print(transitionText[0])
+        elif self.currentStatus == 1:
+            self.tiredness+=1
+            self.thirst=0
+            if self.tiredness>=self.TOO_TIRED:
+                self.currentStatus = 2
+                print(transitionText[2])
+            else:
+                self.currentStatus=0
+                print(transitionText[1])
+        elif self.currentStatus == 2:
+            self.tiredness-=3
+            if self.tiredness<0:
+                self.tiredness = 0
+                print(transitionText[4])
+                self.currentStatus = 0
+       # self.tiredness += 1
+        
+      #  self.thirst += 1 # Should only be called when not sleeping...
+'''
+        print("If they get thirsty, they should leave and go get a drink.")
+        print("Only once they get to the bar, they have the opportunity "
+              " to drink, which happens with the next update call.")
+        print("Once they're done drinking, their thirst should go back to 0.")
+        print("When characters are tired, they should head off back home.")
+        print("Once home, they don't get thirsty anymore. They loose 3"
+              " tiredness at every update call.")
+        print("Once rested, they can go back to work.")
+'''
