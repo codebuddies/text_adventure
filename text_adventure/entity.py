@@ -22,7 +22,7 @@ class Entity:
 class MyCharacter(Entity):
 
     def __init__(self, name):
-        super().__init__name()
+        super().__init__(name)
         self.current_status = Working()
 
     def change_status(self, new_status):
@@ -58,7 +58,7 @@ class Drinking:
         if entity.tiredness == entity.TOO_TIRED:
             print("I'll go back home get some sleep.")
             entity.change_status(Sleeping())
-        elif self.thirst == 0:
+        elif entity.thirst == 0:
             print("I'll go to work.")
             entity.change_status(Working())
 
