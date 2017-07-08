@@ -8,3 +8,6 @@ __pycache__
 
 # Spyder
 .spyderworkspace
+
+# pytest
+.cache
