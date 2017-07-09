@@ -22,3 +22,5 @@ Your mission is to find and fix those items!
 
 You can find an example of what the output might be like in 
 `expected_output.txt`.
+
+Hi, bethany
